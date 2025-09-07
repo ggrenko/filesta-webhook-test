@@ -20,10 +20,8 @@ export default async function handler(req, res) {
     body: JSON.stringify({ service, url })
   });
 
-  // пробуем JSON, иначе текст
   let data;
-  try { data = await r.json(); }
-  catch { data = { raw: await r.text() }; }
+  try { data = await r.json(); } catch { data = { raw: await r.text() }; }
 
   return res.status(r.status).json(data);
 }
