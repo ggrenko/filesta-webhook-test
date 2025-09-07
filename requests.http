@@ -1,0 +1,30 @@
+### 0) ПИНГУЕМ ПРОСТО СЕРВИС
+GET https://filesta-webhook-test.vercel.app/api/status
+
+### 1) ЗАПУСК ЗАДАЧИ В FILESTA ЧЕРЕЗ ТВОЙ ДОМЕН (envato)
+# ВАЖНО: В Vercel в переменные окружения должен быть FILESTA_API_KEY
+POST https://filesta-webhook-test.vercel.app/api/trigger
+Content-Type: application/json
+
+{
+  "service": "envato",
+  "url": "https://elements.envato.com/computer-scientist-running-ai-cognitive-computing--DQHNFQN"
+}
+
+### 2) ПОСЛЕ 202 Accepted СКОПИРУЙ requestId И ПРОВЕРЬ СТАТУС
+# Подставь свой requestId из ответа триггера
+GET https://filesta-webhook-test.vercel.app/api/status?requestId={{requestId}}
+
+### 3) ПОСМОТРЕТЬ ПОСЛЕДНИЙ ВЕБХУК (если попали на тот же инстанс)
+GET https://filesta-webhook-test.vercel.app/api/status
+
+### 4) (ОПЦИОНАЛЬНО) РУЧНАЯ ИМИТАЦИЯ ВЕБХУКА — ПРОВЕРКА ЭНДПОИНТА
+POST https://filesta-webhook-test.vercel.app/api/webhook?secret=ad9cc594-0bef-644c-09ab-bb76e43ec245
+Content-Type: application/json
+
+{
+  "requestId": "local-test-1",
+  "status": "completed",
+  "result": { "downloadUrl": "https://example.com/test.zip" },
+  "timestamp": "2025-09-07T16:20:00.000Z"
+}
